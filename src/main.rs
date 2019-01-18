@@ -12,13 +12,16 @@ fn main() {
     "4" => problem4(),
     "5" => problem5(),
     "6" => problem6(),
-    _ => panic!("that euler problem is not implemented!")
+    "7" => problem7(),
+    _ => panic!("that euler problem is not implemented!"),
   }
 }
 
 fn problem1() {
-  let solution: u64 = (1u64..1000u64).into_iter()
-    .filter(|number| number % 3 == 0 || number % 5 == 0).sum();
+  let solution: u64 = (1u64..1000u64)
+    .into_iter()
+    .filter(|number| number % 3 == 0 || number % 5 == 0)
+    .sum();
   println!("{}", solution);
 }
 
@@ -30,10 +33,7 @@ fn problem2() {
 
   impl Fib {
     fn new() -> Fib {
-      Fib {
-        curr: 0,
-        next: 1,
-      }
+      Fib { curr: 0, next: 1 }
     }
   }
 
@@ -42,7 +42,7 @@ fn problem2() {
 
     fn next(&mut self) -> Option<<Self as Iterator>::Item> {
       let temp = self.curr;
-      self.curr  = self.next;
+      self.curr = self.next;
       self.next = temp + self.next;
       Some(self.curr)
     }
@@ -67,7 +67,7 @@ fn problem3() {
 
   let mut possible_primes = vec![true; number_sqrt];
 
-  for i in 2..number_sqrt/2 {
+  for i in 2..number_sqrt / 2 {
     let mut factor = i;
     while i * factor < number_sqrt {
       let index = (i * factor) - 1 as usize;
@@ -76,21 +76,26 @@ fn problem3() {
     }
   }
 
-  let prime_factors: Vec<(usize)> = possible_primes.iter().enumerate().filter(|x| NUMBER % (x.0 as u64 + 1) == 0 && *x.1).map(|x| x.0 + 1).collect();
+  let prime_factors: Vec<(usize)> = possible_primes
+    .iter()
+    .enumerate()
+    .filter(|x| NUMBER % (x.0 as u64 + 1) == 0 && *x.1)
+    .map(|x| x.0 + 1)
+    .collect();
 
   println!("{}", prime_factors.last().unwrap());
 }
 
 fn problem4() {
   fn is_palindrome_num(num: u64) -> bool {
-    let string= num.to_string();
+    let string = num.to_string();
     is_palindrome(&string)
   }
 
   fn is_palindrome(s: &str) -> bool {
     let chars: Vec<char> = s.chars().collect();
 
-    for i in 0..chars.len()/2 {
+    for i in 0..chars.len() / 2 {
       if chars[i] != chars[chars.len() - 1 - i] {
         return false;
       }
@@ -119,7 +124,7 @@ fn problem5() {
 
   fn is_divisible_by_values(values: &[u64], number: u64) -> bool {
     for value in values {
-      if number % value != 0{
+      if number % value != 0 {
         return false;
       }
     }
@@ -142,4 +147,33 @@ fn problem6() {
   let square_of_sums: u64 = range.clone().sum::<u64>().pow(2);
 
   println!("{}", square_of_sums - sum_of_squares);
+}
+
+fn problem7() {
+  // copy pasted the solution for problem 3.
+  const NUMBER: u64 = 600851475143u64;
+  let number_sqrt: usize = (NUMBER as f64).sqrt().ceil() as usize;
+
+  let mut possible_primes = vec![true; number_sqrt];
+
+  for i in 2..1_000_000 {
+    let mut factor = i;
+    while i * factor < number_sqrt {
+      let index = (i * factor) - 1 as usize;
+      possible_primes[index] = false;
+      factor += 1;
+    }
+  }
+
+  println!(
+    "{}",
+    possible_primes
+      .iter()
+      .enumerate()
+      .filter(|x| *x.1)
+      .nth(10_001)
+      .unwrap()
+      .0
+      + 1
+  );
 }
