@@ -14,6 +14,7 @@ fn main() {
     "6" => problem6(),
     "7" => problem7(),
     "8" => problem8(),
+    "9" => problem9(),
     _ => panic!("that euler problem is not implemented!"),
   }
 }
@@ -212,4 +213,23 @@ fn problem8() {
     .unwrap();
 
   println!("{}", solution);
+}
+
+fn problem9() {
+  fn find_triple() -> Option<(u64, u64, u64)> {
+    for i in 1u64..1001 {
+      for j in (i + 1)..1001 {
+        for k in (j + 1)..1001 {
+          if i + j + k == 1000 && i.pow(2) + j.pow(2) == k.pow(2) {
+            return Some((i, j, k));
+          }
+        }
+      }
+    }
+
+    None
+  }
+
+  let (a, b, c) = find_triple().unwrap();
+  println!("{}", a * b * c);
 }
