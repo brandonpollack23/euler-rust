@@ -1,3 +1,5 @@
+mod constants;
+
 fn main() {
   let problem: Vec<String> = std::env::args().collect();
   if problem.len() < 2 {
@@ -17,6 +19,8 @@ fn main() {
     "9" => problem9(),
     "10" => problem10(),
     "11" => problem11(),
+    "12" => problem12(),
+    "13" => problem13(),
     _ => panic!("that euler problem is not implemented!"),
   }
 }
@@ -334,4 +338,45 @@ fn problem11() {
   }
 
   println!("{}", max_prod);
+}
+
+fn problem12() {
+  fn triangle_number(n: u64) -> u64 {
+    n * (n + 1) / 2
+  }
+
+  fn find_factors(n: u64) -> Vec<u64> {
+    let max = (n as f64).sqrt().ceil() as u64;
+    let mut solution = Vec::new();
+    for i in 1..max {
+      if n % i == 0 {
+        solution.push(i);
+        solution.push(n / i);
+      }
+    }
+
+    solution
+  }
+
+  let mut i = 1;
+  let solution;
+  loop {
+    let t = triangle_number(i);
+    if find_factors(t).len() > 500 {
+        solution = t;
+      break;
+    }
+    i += 1;
+  };
+
+  println!("{}", solution);
+}
+
+use rug;
+
+fn problem13() {
+    let big_ints: Vec<rug::Integer> = constants::PROBLEM13_NUMBER_STRINGS.iter().map(|&num| rug::Integer::from(rug::Integer::parse_radix(num, 10).unwrap())).collect();
+
+  let solution: rug::Integer = big_ints.iter().sum();
+  println!("{}", solution.to_string_radix(10).split_at(10).0);
 }

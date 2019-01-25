@@ -1,4 +1,32 @@
 [[package]]
 name = "euler"
 version = "0.1.0"
+dependencies = [
+ "rug 1.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 
+[[package]]
+name = "gmp-mpfr-sys"
+version = "1.1.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "libc 0.2.48 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "libc"
+version = "0.2.48"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "rug"
+version = "1.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "gmp-mpfr-sys 1.1.10 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[metadata]
+"checksum gmp-mpfr-sys 1.1.10 (registry+https://github.com/rust-lang/crates.io-index)" = "7430aced6caa6b74d0faef07a63e3e5f2009f83a87eef984dbe06efbd6b6a23e"
+"checksum libc 0.2.48 (registry+https://github.com/rust-lang/crates.io-index)" = "e962c7641008ac010fa60a7dfdc1712449f29c44ef2d4702394aea943ee75047"
+"checksum rug 1.2.3 (registry+https://github.com/rust-lang/crates.io-index)" = "e3269d06a5a12bf83548fc8a51972441201475e5227ba2fc297f7d1c8e443f6b"
