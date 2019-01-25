@@ -21,6 +21,7 @@ fn main() {
     "11" => problem11(),
     "12" => problem12(),
     "13" => problem13(),
+    "14" => problem14(),
     _ => panic!("that euler problem is not implemented!"),
   }
 }
@@ -379,4 +380,29 @@ fn problem13() {
 
   let solution: rug::Integer = big_ints.iter().sum();
   println!("{}", solution.to_string_radix(10).split_at(10).0);
+}
+
+fn problem14() {
+  fn collatz(mut num: u64) -> Option<Vec<u64>> {
+    if num <= 0 {
+      return None
+    }
+
+    let mut solution = Vec::new();
+
+    while num != 1 {
+      solution.push(num);
+      if num % 2 == 0 {
+        num = num / 2;
+      } else {
+        num = 3 * num + 1
+      }
+    }
+
+    Some(solution)
+  }
+
+  let collatz_lengths: Vec<usize> = (1u64..1_000_000u64).map(|num| collatz(num).unwrap().len()).collect();
+  let solution = collatz_lengths.iter().enumerate().max_by(|x, y| x.1.cmp(y.1)).unwrap().0 + 1;
+  println!("{}", solution);
 }
