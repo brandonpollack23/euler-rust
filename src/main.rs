@@ -23,6 +23,7 @@ fn main() {
     "13" => problem13(),
     "14" => problem14(),
     "15" => problem15(),
+    "16" => problem16(),
     _ => panic!("that euler problem is not implemented!"),
   }
 }
@@ -442,4 +443,7 @@ fn problem15() {
 }
 
 fn problem16() {
+  let power_play = rug::Integer::from(rug::Integer::u_pow_u(2, 1000));
+  let solution: u64 = power_play.to_string_radix(10).chars().map(|c| c.to_digit(10).unwrap() as u64).sum();
+  println!("{}", solution);
 }
