@@ -440,3 +440,6 @@ fn problem15() {
 
   println!("{}", num_paths_dp(20, 20));
 }
+
+fn problem16() {
+}
