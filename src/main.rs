@@ -410,16 +410,16 @@ fn problem14() {
 }
 
 fn problem15() {
-  fn num_paths_recursive_naive(vert: u64, horiz: u64) -> u64 {
+  fn _num_paths_recursive_naive(vert: u64, horiz: u64) -> u64 {
     if vert == 0 && horiz == 0 {
       return 0;
     } else if vert == 0 {
-      return 1 + num_paths_recursive_naive(vert, horiz - 1);
+      return 1 + _num_paths_recursive_naive(vert, horiz - 1);
     } else if horiz == 0 {
-      return 1 + num_paths_recursive_naive(vert - 1, horiz);
+      return 1 + _num_paths_recursive_naive(vert - 1, horiz);
     }
 
-    2 + num_paths_recursive_naive(vert - 1, horiz) + num_paths_recursive_naive(vert, horiz - 1)
+    2 + _num_paths_recursive_naive(vert - 1, horiz) + _num_paths_recursive_naive(vert, horiz - 1)
   }
 
   // TODO Can be optimized by only storing previous row and column.
