@@ -22,6 +22,7 @@ fn main() {
     "12" => problem12(),
     "13" => problem13(),
     "14" => problem14(),
+    "15" => problem15(),
     _ => panic!("that euler problem is not implemented!"),
   }
 }
@@ -405,4 +406,37 @@ fn problem14() {
   let collatz_lengths: Vec<usize> = (1u64..1_000_000u64).map(|num| collatz(num).unwrap().len()).collect();
   let solution = collatz_lengths.iter().enumerate().max_by(|x, y| x.1.cmp(y.1)).unwrap().0 + 1;
   println!("{}", solution);
+}
+
+fn problem15() {
+  fn num_paths_recursive_naive(vert: u64, horiz: u64) -> u64 {
+    if vert == 0 && horiz == 0 {
+      return 0;
+    } else if vert == 0 {
+      return 1 + num_paths_recursive_naive(vert, horiz - 1);
+    } else if horiz == 0 {
+      return 1 + num_paths_recursive_naive(vert - 1, horiz);
+    }
+
+    2 + num_paths_recursive_naive(vert - 1, horiz) + num_paths_recursive_naive(vert, horiz - 1)
+  }
+
+  // TODO Can be optimized by only storing previous row and column.
+  fn num_paths_dp(vert: u64, horiz: u64) -> u64 {
+    assert!(vert > 0 && horiz > 0);
+
+    let mut memo = vec![vec![1; (vert + 1) as usize]; (horiz + 1) as usize];
+
+    for i in 0usize..=vert as usize {
+      for j in 0usize..=horiz as usize {
+        if i > 0 && j > 0 {
+          memo[i][j] = memo[i - 1][j] + memo[i][j - 1];
+        }
+      }
+    }
+
+    memo[20][20]
+  }
+
+  println!("{}", num_paths_dp(20, 20));
 }
